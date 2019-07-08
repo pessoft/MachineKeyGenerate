@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.IO;
 
 namespace MachineKeyGenerate
 {
@@ -13,8 +14,20 @@ namespace MachineKeyGenerate
         {
             var txtDecryptionKey = CreateMachineKey(48);
             var txtValidationKey = CreateMachineKey(128);
+            var filename = "GenenreateMahineKey.txt";
+            var result = string.Format("DecryptionKey: {0}\nValidationKe: {1}", txtDecryptionKey, txtValidationKey);
 
-            Console.WriteLine("DecryptionKey: {0}\nValidationKe: {1}", txtDecryptionKey, txtValidationKey);
+            try
+            {
+                File.WriteAllText(filename, result);
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(filename, ex.Message);
+            }
+
+            Console.Write("Genenrate machine key success...");
+            Console.Write("Output file {0}", filename);
             Console.ReadKey();
         }
 
